@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react";
+import SearchBar from "./components/SearchBar";
 
 const App = () => {
 	const [movies, setMovies] = useState([]);
@@ -45,6 +46,11 @@ const App = () => {
 		fetchMovies();
 	}, [searchTerm, page, view]);
 
+	const handleSearch = (term) => {
+		setSearchTerm(term);
+		setPage(1);
+	};
+
 	return (
 		<div className="container mx-auto p-4 flex flex-col items-center text-center">
 			<h1 className="text-4xl font-extrabold mb-6 drop-shadow-2xl">
@@ -67,6 +73,11 @@ const App = () => {
 					Favorites
 				</a>
 			</div>
+			{view === "search" && (
+				<div className="w-full max-w-md mb-6">
+					<SearchBar onSearch={handleSearch} />
+				</div>
+			)}
 		</div>
 	);
 };
