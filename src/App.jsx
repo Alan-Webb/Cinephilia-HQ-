@@ -33,15 +33,42 @@ const App = () => {
 				const res = await fetch(url);
 				if (!res.ok) throw new Error("Failed to fetch movies.");
 				const data = await res.json();
+				console.log(data);
 				setMovies(data.results);
-				setTotalPages(Math.min(data.total_pages, 500));
+				setTotalPages(Math.min(data.total_pages || 0, 500));
 			} catch (err) {
 				setError("Failed to fetch movies.");
+			} finally {
+				setLoading(false);
 			}
 		};
-	}, []);
+		fetchMovies();
+	}, [searchTerm, page, view]);
 
-	return <div></div>;
+	return (
+		<div className="container mx-auto p-4 flex flex-col items-center text-center">
+			<h1 className="text-4xl font-extrabold mb-6 drop-shadow-2xl">
+				Cinephilia HQ
+			</h1>
+			<div className="tabs tabs-border mb-6">
+				<a
+					className={`tab text-lg ${view === "search" ? "tab-active" : ""}`}
+					onClick={() => {
+						setView("search");
+						setPage(1);
+					}}>
+					Search / Popular
+				</a>
+				<a
+					className={`tab text-lg ${view === "favorites" ? "tab-active" : ""}`}
+					onClick={() => {
+						setView("favorites");
+					}}>
+					Favorites
+				</a>
+			</div>
+		</div>
+	);
 };
 
 export default App;
