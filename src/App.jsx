@@ -14,7 +14,7 @@ const App = () => {
 	const [selectMovie, setSelectMovie] = useState(null);
 	const [view, setView] = useState("search");
 
-	const API_KEY = "import.meta.env.VITE_TMDB_API_KEY";
+	const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
 	useEffect(() => {
 		if (view === "favorites") {
@@ -53,6 +53,8 @@ const App = () => {
 		setPage(1);
 	};
 
+	const displayedMovies = movies;
+
 	return (
 		<div className="container mx-auto p-4 flex flex-col items-center text-center">
 			<h1 className="text-4xl font-extrabold mb-6 drop-shadow-2xl">
@@ -82,9 +84,17 @@ const App = () => {
 					<SearchBar onSearch={handleSearch} />
 				</div>
 			)}
-			{/* Loading Spinner & Error Msg */}
+			{/* Spinner & Errors */}
 			{loading && <Spinner />}
 			{error && <ErrorMsg message={error} />}
+			{!loading && !error && displayedMovies.length === 0 && (
+				<div>
+					No movies found.{""}
+					{view === "favorites"
+						? "Add some to favorites!"
+						: "Try a different search."}
+				</div>
+			)}
 		</div>
 	);
 };
