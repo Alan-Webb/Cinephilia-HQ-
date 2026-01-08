@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import SearchBar from "./components/SearchBar";
 import Spinner from "./components/Spinner";
 import ErrorMsg from "./components/ErrorMsg";
+import MovieCard from "./components/MovieCard";
 
 const App = () => {
 	const [movies, setMovies] = useState([]);
@@ -93,6 +94,13 @@ const App = () => {
 					{view === "favorites"
 						? "Add some to favorites!"
 						: "Try a different search."}
+				</div>
+			)}
+			{!loading && !error && displayedMovies.length > 0 && (
+				<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full">
+					{displayedMovies.map((movie) => (
+						<MovieCard key={movie.id} movie={movie} />
+					))}
 				</div>
 			)}
 		</div>
