@@ -114,8 +114,8 @@ function App() {
 	const displayedMovies = view === "search" ? movies : favorites;
 
 	return (
-		<div className="container mx-auto p-4 flex flex-col items-center text-center">
-			<h1 className="text-4xl font-extrabold mb-6 drop-shadow-2xl">
+		<div className="bg-linear-to-br from-pink-950 via-stone-950 to-purple-900 mx-auto p-4 flex flex-col items-center text-center">
+			<h1 className="text-4xl text-yellow-500 uppercase font-extrabold tracking-wider my-8 drop-shadow-2xl">
 				Cinephilia HQ
 			</h1>
 			<div className="tabs tabs-border mb-6">
